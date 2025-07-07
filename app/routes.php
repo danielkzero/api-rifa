@@ -2,12 +2,19 @@
 
 declare(strict_types=1);
 
-use App\Application\Actions\User\ListUsersAction;
-use App\Application\Actions\User\ViewUserAction;
+
+use Slim\App;
+
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Slim\App;
+use Psr\Container\ContainerInterface;
+
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
+use Slim\Exception\HttpUnauthorizedException;
+
+use App\Application\Handlers\Api\Online;
+use App\Application\Handlers\Api\Usuarios;
+use App\Auth\TokenValidator;
 
 
 $app->add(function ($request, $handler) {
@@ -17,19 +24,28 @@ $app->add(function ($request, $handler) {
                          ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
                          ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 });
-return function (App $app) {
+
+$validerTokenMiddleware = function ($request, $handler) {
+    try {
+        TokenValidator::validateToken($request);
+    } catch (Exception $e) {
+        throw new HttpUnauthorizedException($request, $e->getMessage());
+    }
+    return $handler->handle($request);
+};
+
+return function (App $app) use ($validerTokenMiddleware) {
+    // Registrando as rotas da API
+
+    // Rota de apresentação
+    Online::registerRoutes($app);
+
+    // Rotas de usuários
+    Usuarios::registerRoutes($app, $validerTokenMiddleware);
+
+    // Middleware para CORS Pre-Flight OPTIONS Request
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
         // CORS Pre-Flight OPTIONS Request Handler
         return $response;
-    });
-
-    $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello world!');
-        return $response;
-    });
-
-    $app->group('/users', function (Group $group) {
-        $group->get('', ListUsersAction::class);
-        $group->get('/{id}', ViewUserAction::class);
     });
 };
