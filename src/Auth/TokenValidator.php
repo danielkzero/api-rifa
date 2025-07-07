@@ -27,6 +27,29 @@ class TokenValidator
         return validateJwtToken($jwt_token, $secretKey)->sub;
     }
 
+    public static function generateJwtToken(array $userload): string
+    {
+        global $container;
+
+        $settings = $container->get(\App\Application\Settings\SettingsInterface::class);
+        $secretKey = $settings->get('secret_key');
+
+        if (empty($secretKey)) {
+            throw new Exception('Chave secreta não configurada', 500);
+        }
+
+        $iat = time(); // Data de emissão
+        $exp = $iat + 3600; // Expira em 1 hora
+
+        $payload = [
+            'iat' => $iat,
+            'exp' => $exp,
+            'sub' => $userload ?? []
+        ];
+
+        return JWT::encode($payload, $secretKey, 'HS256');
+    }
+
     private function validateJwtToken(string $jwt_token, string $secretKey): array
     {
         try {
