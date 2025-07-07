@@ -10,13 +10,12 @@ use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 
-$app->add(function (Request $request, Response $response, callable $next) {
+$app->add(function ($request, $handler) {
     // Middleware to handle CORS
-    $response = $next($request, $response);
-    $response = $response->withHeader('Access-Control-Allow-Origin', '*')
+    $response = $handler->handle($request);
+    return $response->withHeader('Access-Control-Allow-Origin', '*')
                          ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
                          ->withHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    return $response;
 });
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
