@@ -19,15 +19,16 @@ class TokenValidator
             throw new Exception('Token não fornecido', 401);
         }
 
-        $token = $request->getHeaderLine('Authorization')[0];
+        $token = $request->getHeaderLine('Authorization');
         $jwt_token = str_replace('Bearer ', '', $token);
         $settings = $container->get(\App\Application\Settings\SettingsInterface::class);
         $secretKey = $settings->get('secret_key');
 
-        return validateJwtToken($jwt_token, $secretKey)->sub;
+        $decoded = self::validateJwtToken($jwt_token, $secretKey);
+        return $decoded;
     }
 
-    public static function generateJwtToken(array $userload): string
+    public static function generateJwtToken(array $usuario): string
     {
         global $container;
 
@@ -44,13 +45,18 @@ class TokenValidator
         $payload = [
             'iat' => $iat,
             'exp' => $exp,
-            'sub' => $userload ?? []
+            'id' => $usuario['id'],
+            'email' => $usuario['email'],
+            'nome' => $usuario['nome'],
+            'cliente_id' => $usuario['cliente_id'],
+            'cliente_nome' => $usuario['cliente_nome'],
+            'nivel_acesso' => $usuario['nivel_acesso']
         ];
 
         return JWT::encode($payload, $secretKey, 'HS256');
     }
 
-    private function validateJwtToken(string $jwt_token, string $secretKey): array
+    private static function validateJwtToken(string $jwt_token, string $secretKey): array
     {
         try {
             $decoded = JWT::decode($jwt_token, new Key($secretKey, 'HS256'));
