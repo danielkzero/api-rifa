@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\http\Server\RequestHandlerInterface as Handler;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Psr7\Response as SlimResponse;
-use App\Auth\TokenValidor;
+use App\Auth\TokenValidator;
 
 class JwtMiddleware
 {
@@ -35,7 +35,7 @@ class JwtMiddleware
         }
     }
 
-    function unauthorized(string $message = 'Token inválido'): Response
+    private function unauthorized(string $message = 'Token inválido'): Response
     {
         $response = new SlimResponse();
         $response->getBody()->write(json_encode(['error' => $message]));
