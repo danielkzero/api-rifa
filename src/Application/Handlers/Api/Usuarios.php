@@ -25,13 +25,13 @@ class Usuarios
 
             $group->get('/{id}', function (Request $request, Response $response, array $args) use ($container) {
                 $id = (int)$args['id'];
-                $pdo = $container->get();
+                $pdo = $container->get(PDO::class);
                 $stmt = $pdo->prepare("SELECT * FROM com_usuario WHERE id = ?");
                 $stmt->execute([$id]);
                 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
                 
                 if (!$usuario) {
-                    return $response->withStatus(404)->write('Usuário não encontrado');
+                    return self::json($response, ['error' => 'Usuário não encontrado'], 404);
                 }
 
                 return self::json($response, $usuario);
