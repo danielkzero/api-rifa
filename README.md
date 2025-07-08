@@ -55,10 +55,6 @@ Acesse no navegador:
 http://localhost:8082
 ```
 
-```bash
-docker-compose up -d
-```
-
 ---
 
 ## :closed_lock_with_key: Autenticação JWT
@@ -99,33 +95,33 @@ DELETE | `/campanhas/{id}`     | Exclui logicamente uma campanha (soft delete) |
 ```bash
 .
 ├── app/
-│   ├── dependencies.php         # :wrench: Definições de serviços e dependências
-│   ├── routes.php               # :triangular_flag_on_post: Registro das rotas
-│   └── settings.php             # :gear: Configurações gerais da aplicação
+│   ├── dependencies.php            # Definições de serviços e dependências
+│   ├── routes.php                  # Registro das rotas
+│   └── settings.php                # Configurações gerais da aplicação
 │
 ├── src/
 │   ├── Application/
 │   │   ├── Actions/
 │   │   ├── Handlers/
 │   │   │   ├── Api/
-│   │   │   │   ├── Campanhas.php   # :trophy: Endpoints de campanhas
-│   │   │   │   ├── Clientes.php    # :busts_in_silhouette: Endpoints de clientes
-│   │   │   │   ├── Online.php      # :globe_with_meridians: Página de apresentação da API
-│   │   │   │   └── Usuarios.php    # :man_technologist: Endpoints de usuários
+│   │   │   │   ├── Campanhas.php   # Endpoints de campanhas
+│   │   │   │   ├── Clientes.php    # Endpoints de clientes
+│   │   │   │   ├── Online.php      # Página de apresentação da API
+│   │   │   │   └── Usuarios.php    # Endpoints de usuários
 │   │   ├── Middleware/
 │   │   └── Settings/
 │
 ├── Auth/
-│   ├── JwtMiddleware.php        # :lock: Middleware de autenticação JWT
-│   └── TokenValidator.php       # :key: Validação e geração de tokens JWT
+│   ├── JwtMiddleware.php           # Middleware de autenticação JWT
+│   └── TokenValidator.php          # Validação e geração de tokens JWT
 │
 ├── Domain/
 ├── Infrastructure/
 ├── logs/
-├── public/                      # :globe_with_meridians: Pasta pública com `index.php`
+├── public/                         # Pasta pública com `index.php`
 ├── tests/
-├── composer.json        # :package: Dependências
-└── README.md            # :blue_book: Este arquivo
+├── composer.json                   # Dependências
+└── README.md                       # Este arquivo
 ```
 
 ---
