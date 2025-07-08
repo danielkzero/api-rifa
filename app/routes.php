@@ -15,6 +15,7 @@ use Slim\Exception\HttpUnauthorizedException;
 use App\Application\Handlers\Api\Online;
 use App\Application\Handlers\Api\Usuarios;
 use App\Application\Handlers\Api\Campanhas;
+use App\Application\Handlers\Api\Clientes;
 use App\Auth\TokenValidator;
 
 
@@ -46,6 +47,9 @@ return function (App $app) use ($validerTokenMiddleware) {
 
     // Rotas de campanhas
     Campanhas::registerRoutes($app, $validerTokenMiddleware);
+
+    // Rotas de clientes
+    Clientes::registerRoutes($app, $validerTokenMiddleware);
 
     // Middleware para CORS Pre-Flight OPTIONS Request
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
