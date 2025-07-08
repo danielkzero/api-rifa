@@ -55,10 +55,6 @@ Acesse no navegador:
 http://localhost:8082
 ```
 
-### :whale: Docker
-
-> :warning: Requer `docker-compose.yml` configurado
-
 ```bash
 docker-compose up -d
 ```
@@ -79,22 +75,22 @@ Authorization: Bearer seu_token_jwt_aqui
 
 Método | Rota                  | Descrição                                     | Autenticação 
 -------|-----------------------|-----------------------------------------------|--------------
-GET    | `/usuarios`           | Lista todos os usuários ativos                | :lock: Sim
-GET    | `/usuarios/{id}`      | Retorna dados de um usuário específico        | :lock: Sim
-POST   | `/usuarios/auth`      | Autenticação e geração de token JWT           | :unlock: Não
-POST   | `/usuarios`           | Cria um novo usuário                          | :lock: Sim
-PUT    | `/usuarios/{id}`      | Atualiza os dados de um usuário               | :lock: Sim
-DELETE | `/usuarios/{id}`      | Desativa logicamente um usuário               | :lock: Sim
-GET    | `/clientes`           | Lista todos os clientes ativos                | :lock: Sim
-GET    | `/clientes/{id}`      | Retorna os dados de um cliente                | :lock: Sim
-POST   | `/clientes`           | Cria um novo cliente                          | :unlock: Não
-PUT    | `/clientes/{id}`      | Atualiza os dados de um cliente               | :lock: Sim
-DELETE | `/clientes/{id}`      | Exclui (hard delete) um cliente               | :lock: Sim
-GET    | `/campanhas`          | Lista todas as campanhas ativas               | :unlock: Não
-GET    | `/campanhas/{id}`     | Retorna uma campanha específica               | :unlock: Não
-POST   | `/campanhas`          | Cria uma nova campanha                        | :lock: Sim
-PUT    | `/campanhas/{id}`     | Atualiza os dados de uma campanha             | :lock: Sim
-DELETE | `/campanhas/{id}`     | Exclui logicamente uma campanha (soft delete) | :lock: Sim
+GET    | `/usuarios`           | Lista todos os usuários ativos                | :heavy_check_mark: Sim
+GET    | `/usuarios/{id}`      | Retorna dados de um usuário específico        | :heavy_check_mark: Sim
+POST   | `/usuarios/auth`      | Autenticação e geração de token JWT           | :x: Não
+POST   | `/usuarios`           | Cria um novo usuário                          | :heavy_check_mark: Sim
+PUT    | `/usuarios/{id}`      | Atualiza os dados de um usuário               | :heavy_check_mark: Sim
+DELETE | `/usuarios/{id}`      | Desativa logicamente um usuário               | :heavy_check_mark: Sim
+GET    | `/clientes`           | Lista todos os clientes ativos                | :heavy_check_mark: Sim
+GET    | `/clientes/{id}`      | Retorna os dados de um cliente                | :heavy_check_mark: Sim
+POST   | `/clientes`           | Cria um novo cliente                          | :x: Não
+PUT    | `/clientes/{id}`      | Atualiza os dados de um cliente               | :heavy_check_mark: Sim
+DELETE | `/clientes/{id}`      | Exclui (hard delete) um cliente               | :heavy_check_mark: Sim
+GET    | `/campanhas`          | Lista todas as campanhas ativas               | :x: Não
+GET    | `/campanhas/{id}`     | Retorna uma campanha específica               | :x: Não
+POST   | `/campanhas`          | Cria uma nova campanha                        | :heavy_check_mark: Sim
+PUT    | `/campanhas/{id}`     | Atualiza os dados de uma campanha             | :heavy_check_mark: Sim
+DELETE | `/campanhas/{id}`     | Exclui logicamente uma campanha (soft delete) | :heavy_check_mark: Sim
 
 ---
 
