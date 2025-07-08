@@ -38,6 +38,7 @@ return function (ContainerBuilder $containerBuilder) {
                     ]
                 ],
                 "secret_key" => "@2025-0.1MM=100-@2025",
+                "timezone" => 'America/Sao_Paulo'                 
             ]);
         }
     ]);
