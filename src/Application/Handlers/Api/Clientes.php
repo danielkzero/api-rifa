@@ -200,6 +200,7 @@ class Clientes
 
     private static function json(Response $response, array $data, int $status = 200): Response
     {
-        return $response->withJson($data, $status);
+        $response->getBody()->write(json_encode($data));
+        return $response->withHeader('Content-Type', 'application/json')->withStatus($status);
     }
 }
